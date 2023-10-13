@@ -1,19 +1,30 @@
-import React from 'react';
+import React, { useState } from "react";
 import "./App.css";
 
 function App() {
-  return <div className="container">
-    <h1>Hello World</h1>
-    <FuncComp initNumber={2}></FuncComp>
-    <ClassComp initNumber={1}></ClassComp>
-  </div>;
+  return (
+    <div className="container">
+      <h1>Hello World</h1>
+      <FuncComp initNumber={2}></FuncComp>
+      <ClassComp initNumber={1}></ClassComp>
+    </div>
+  );
 }
 
 function FuncComp(props) {
-  return(
+  const [number, setNumber] = useState(props.initNumber);
+
+  return (
     <div className="container">
       <h2>function style component</h2>
-      <p>Number : {props.initNumber}</p>
+      <p>Number : {number}</p>
+      <input
+        type="button"
+        value="random"
+        onClick={function () {
+          setNumber(Math.random());
+        }}
+      ></input>
     </div>
   );
 }
@@ -21,8 +32,8 @@ function FuncComp(props) {
 class ClassComp extends React.Component {
   // state 초기화
   state = {
-    number:this.props.initNumber
-  }
+    number: this.props.initNumber,
+  };
 
   // state 업데이트 시 리렌더링
   render() {
@@ -30,13 +41,15 @@ class ClassComp extends React.Component {
       <div className="container">
         <h2>class style component</h2>
         <p>Number : {this.state.number}</p>
-        <input type="button" value="random" onClick={
-          function(){
-            this.setState({number:Math.random()})
-          }.bind(this)
-        }></input>
+        <input
+          type="button"
+          value="random"
+          onClick={function () {
+            this.setState({ number: Math.random() });
+          }.bind(this)}
+        ></input>
       </div>
-    )
+    );
   }
 }
 
